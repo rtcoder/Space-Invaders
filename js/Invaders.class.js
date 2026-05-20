@@ -130,8 +130,8 @@ class Invaders {
 
     updateHud() {
         document.getElementById('level').innerHTML = this.level + 1;
-        document.getElementById('lives').innerHTML = player.lives;
-        document.getElementById('score').innerHTML = this.score;
+        document.getElementById('lives').innerHTML = 'x' + player.lives;
+        document.getElementById('score').innerHTML = String(this.score).padStart(6, '0');
     }
 
     showMessage(title, text, actionLabel, action) {

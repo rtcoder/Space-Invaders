@@ -32,7 +32,7 @@ class Extras {
         this.activeExtras = [];
         this.lastDropTime = null;
         for (let i in this.types) {
-            document.getElementById(this.types[i].name + 'Container').style = 'display:none';
+            document.getElementById(this.types[i].name + 'Container').style.display = 'none';
         }
     }
 
@@ -63,11 +63,11 @@ class Extras {
         for (let i in ae) {
             if (ae[i].remaningTime <= 0) {
                 delete ae[i];
-                document.getElementById(i + 'Container').style = 'display:none';
+                document.getElementById(i + 'Container').style.display = 'none';
             } else {
                 ae[i].remaningTime -= delta;
                 document.getElementById(i).innerHTML = Math.floor(ae[i].remaningTime / 1000) + 's';
-                document.getElementById(i + 'Container').style = 'display:inline';
+                document.getElementById(i + 'Container').style.display = 'inline-flex';
             }
         }
     }
