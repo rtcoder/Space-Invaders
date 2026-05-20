@@ -1,4 +1,4 @@
-class Extras {
+export class Extras {
     constructor() {
         this.types = [
             {

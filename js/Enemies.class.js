@@ -1,4 +1,4 @@
-class Enemies {
+export class Enemies {
     constructor() {
         this.width = 30;
         this.height = 30;

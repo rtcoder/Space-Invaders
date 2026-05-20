@@ -1,4 +1,4 @@
-class Player {
+export class Player {
     constructor() {
         this.allowMoveLeft = true;
         this.allowMoveRight = true;

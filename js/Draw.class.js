@@ -1,4 +1,4 @@
-class Draw {
+export class Draw {
     constructor() {
         this.backgroundColor = '#02030a';
         this.stars = [];

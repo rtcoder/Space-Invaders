@@ -1,4 +1,4 @@
-class Package {
+export class Package {
     constructor(x, y) {
         this.x = x;
         this.y = y ? y : 0;

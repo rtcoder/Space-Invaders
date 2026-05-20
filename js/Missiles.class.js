@@ -1,4 +1,4 @@
-class Missiles {
+export class Missiles {
     constructor() {
         this.size = 5;
         this.step = 620;

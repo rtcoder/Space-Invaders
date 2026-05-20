@@ -1,4 +1,4 @@
-class Collisions {
+export class Collisions {
     Explodes() {
         let e = enemies.list;
         let ex = missiles.explodes;

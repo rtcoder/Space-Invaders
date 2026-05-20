@@ -1,4 +1,4 @@
-class Invaders {
+export class Invaders {
     constructor() {
         this.isPaused = false;
         this.isFinished = false;

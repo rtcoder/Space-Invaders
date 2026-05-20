@@ -1,4 +1,4 @@
-class Mouse {
+export class Mouse {
     constructor() {
         this.right = false;
         this.left = false;
