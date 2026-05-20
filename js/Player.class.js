@@ -5,18 +5,42 @@ class Player {
         this.color = '#fff';
         this.lastShootTime = null;
         this.shootInterval = 1000;
-        this.step = 3;
+        this.step = 480;
         this.width = 50;
         this.largeWidth = 100;
         this.height = 15;
         this.x = 0;
         this.y = canvas.height - this.height;
-        this.lives = 30;
+        this.maxLives = 3;
+        this.lives = this.maxLives;
+        this.invulnerableTime = 0;
     }
 
-    moveLeft() {
+    reset() {
+        this.x = canvas.width / 2 - this.width / 2;
+        this.y = canvas.height - this.height - 20;
+        this.lives = this.maxLives;
+        this.lastShootTime = null;
+        this.invulnerableTime = 0;
+    }
+
+    update(delta) {
+        if (this.invulnerableTime > 0) {
+            this.invulnerableTime -= delta;
+        }
+    }
+
+    makeInvulnerable() {
+        this.invulnerableTime = 1400;
+    }
+
+    isInvulnerable() {
+        return this.invulnerableTime > 0;
+    }
+
+    moveLeft(delta) {
         if (this.allowMoveLeft) {
-            let step = this.step;
+            let step = this.step * delta / 1000;
             if (typeof extras.activeExtras.superSpeed !== 'undefined') {
                 step *= 2;
             }
@@ -26,13 +50,13 @@ class Player {
         }
     }
 
-    moveRight() {
+    moveRight(delta) {
         if (this.allowMoveRight) {
             let width = this.width;
             if (typeof extras.activeExtras.largeShip !== 'undefined') {
                 width = this.largeWidth;
             }
-            let step = this.step;
+            let step = this.step * delta / 1000;
             if (typeof extras.activeExtras.superSpeed !== 'undefined') {
                 step *= 2;
             }

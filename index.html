@@ -13,6 +13,14 @@
                     <span>Level:&nbsp;</span>
                     <span id="level"></span>
                 </span>
+                <span>|
+                    <span>lives:&nbsp;</span>
+                    <span id="lives"></span>
+                </span>
+                <span>|
+                    <span>score:&nbsp;</span>
+                    <span id="score"></span>
+                </span>
                 <span id="doubleShootContainer">|
                     <span>double shoot:&nbsp;</span>
                     <span id="doubleShoot"></span>
@@ -32,26 +40,44 @@
 
             <canvas id="canvas"></canvas>
 
+            <div id="message" class="hidden">
+                <h1 id="messageTitle"></h1>
+                <p id="messageText"></p>
+                <button id="messageAction">Continue</button>
+            </div>
+
             <div id="menu">
                 <ul>
                     <li id="startGame">Play</li>
                     <li class="open-view" data-id="controls">Controls</li>
                     <li class="open-view" data-id="equipment">Equipment</li>
-                    <li>Credits</li>
+                    <li class="open-view" data-id="credits">Credits</li>
                 </ul>
             </div>
 
             <div class="view" id="controls">
                 <button class="back"><-</button>
-                <ul>
-                    <li>Keyboard</li>
-                    <li>Mouse</li>
-                    <li>Gamepad</li>
+                <h2>Controls</h2>
+                <ul class="options">
+                    <li><button class="control-option" data-control="mouse">Mouse</button></li>
+                    <li><button class="control-option" data-control="keyboard">Keyboard</button></li>
+                    <li><button class="control-option" data-control="both">Mouse + Keyboard</button></li>
                 </ul>
             </div>
             <div class="view" id="equipment">
                 <button class="back"><-</button>
-
+                <h2>Equipment</h2>
+                <ul class="equipment-list">
+                    <li><span class="power double">D</span> double shoot</li>
+                    <li><span class="power large">L</span> large ship</li>
+                    <li><span class="power speed">S</span> super speed</li>
+                    <li><span class="power bomb">B</span> bomb</li>
+                </ul>
+            </div>
+            <div class="view" id="credits">
+                <button class="back"><-</button>
+                <h2>Credits</h2>
+                <p>Designed & programmed by rtCoder</p>
             </div>
         </div>
         <script>

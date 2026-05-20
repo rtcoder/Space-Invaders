@@ -23,7 +23,7 @@ document.onkeydown = function (e) {
             keys.ctrl = true;
             break;
         case 27:
-            Game.isPaused = !Game.isPaused;
+            Game.togglePause();
             break;
         case 32:
             keys.space = true;

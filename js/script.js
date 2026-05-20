@@ -16,7 +16,7 @@ var collisions = new Collisions();
         let menu = document.getElementById('menu');
         menu.classList.add('hidden');
 
-        viewDiv = document.getElementById(view);
+        let viewDiv = document.getElementById(view);
         viewDiv.classList.add('visible');
     }
 
@@ -24,7 +24,7 @@ var collisions = new Collisions();
         let menu = document.getElementById('menu');
         menu.classList.remove('hidden');
 
-        viewDivs = document.getElementsByClassName('view');
+        let viewDivs = document.getElementsByClassName('view');
         for (let div of viewDivs) {
             div.classList.remove('visible');
         }
@@ -36,7 +36,21 @@ var collisions = new Collisions();
         Game.startGame();
     }
 
+    function selectControl(btn) {
+        controls.setScheme(btn.dataset.control);
+        let buttons = document.getElementsByClassName('control-option');
+        for (let option of buttons) {
+            option.classList.remove('active');
+        }
+        btn.classList.add('active');
+    }
+
     document.getElementById('startGame').addEventListener('click', startGame);
+    document.getElementById('messageAction').addEventListener('click', function () {
+        if (Game.messageAction) {
+            Game.messageAction();
+        }
+    });
     let menuListElements = document.getElementsByClassName('open-view');
     for (let btn of menuListElements) {
         let id = btn.dataset.id;
@@ -49,5 +63,14 @@ var collisions = new Collisions();
         btn.addEventListener('click', function () {
             backToMenu();
         });
+    }
+    let controlButtons = document.getElementsByClassName('control-option');
+    for (let btn of controlButtons) {
+        btn.addEventListener('click', function () {
+            selectControl(btn);
+        });
+        if (btn.dataset.control === 'both') {
+            btn.classList.add('active');
+        }
     }
 })();

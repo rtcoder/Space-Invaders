@@ -6,6 +6,7 @@ class Package {
         this.size = 30;
         this.uid = getRandomString();
         this.color = extras.types[this.type].color;
+        this.label = extras.types[this.type].label;
     }
 
     set() {

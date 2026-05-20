@@ -4,30 +4,43 @@ class Extras {
             {
                 name: 'doubleShoot',
                 remaningTime: 10000,
-                color: 'yellow'
+                color: '#ffd84d',
+                label: 'D'
             },
             {
                 name: 'largeShip',
                 remaningTime: 15000,
-                color: 'red'
+                color: '#ff4d6d',
+                label: 'L'
             },
             {
                 name: 'superSpeed',
                 remaningTime: 10000,
-                color: 'yellow'
+                color: '#40e0d0',
+                label: 'S'
             }
         ];
         this.activeExtras = [];
-        this.interval = 1000;
+        this.interval = 5000;
         this.list = [];
         this.lastDropTime = null;
-        this.step = 1;
+        this.step = 90;
     }
 
-    move() {
+    reset() {
+        this.list = [];
+        this.activeExtras = [];
+        this.lastDropTime = null;
+        for (let i in this.types) {
+            document.getElementById(this.types[i].name + 'Container').style = 'display:none';
+        }
+    }
+
+    move(delta) {
         let el = this.list;
+        let moveBy = this.step * delta / 1000;
         for (let i in el) {
-            el[i].y += this.step;
+            el[i].y += moveBy;
             if (el[i].y > canvas.height) {
                 el.splice(i, 1);
             }
@@ -36,24 +49,23 @@ class Extras {
 
     addPackage() {
         if (!this.lastDropTime || new Date().getTime() - this.lastDropTime > this.interval) {
-            let count = 0;
-            let c = 0;
-            let x = getRandomInt(1, canvas.width);
-            let y = getRandomInt(1, canvas.height / 3);
+            let size = 30;
+            let x = getRandomInt(size / 2, canvas.width - size / 2);
+            let y = getRandomInt(size / 2, canvas.height / 3);
             let p = new Package(x, y);
             this.list.push(p);
             this.lastDropTime = new Date().getTime();
         }
     }
 
-    countDown() {
+    countDown(delta) {
         let ae = this.activeExtras;
         for (let i in ae) {
             if (ae[i].remaningTime <= 0) {
                 delete ae[i];
                 document.getElementById(i + 'Container').style = 'display:none';
             } else {
-                ae[i].remaningTime -= Game.loopMilisconds;
+                ae[i].remaningTime -= delta;
                 document.getElementById(i).innerHTML = Math.floor(ae[i].remaningTime / 1000) + 's';
                 document.getElementById(i + 'Container').style = 'display:inline';
             }

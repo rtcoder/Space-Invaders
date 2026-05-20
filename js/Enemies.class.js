@@ -3,7 +3,8 @@ class Enemies {
         this.width = 30;
         this.height = 30;
         this.space = 20;
-        this.step = 1;
+        this.step = 80;
+        this.dropDistance = 12;
         this.color = 'rgba(255, 0, 0, 0.7)';
         this.rows = 5;
         this.cols = 5;
@@ -16,10 +17,14 @@ class Enemies {
 
     generate() {
         this.list = new Array();
+        this.moveBack = false;
+        this.lastShootTime = null;
+        let formationWidth = this.cols * this.width + (this.cols - 1) * this.space;
+        let startX = Math.max(0, canvas.width / 2 - formationWidth / 2);
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
                 this.list.push({
-                    x: (this.width + this.space) * j,
+                    x: startX + (this.width + this.space) * j,
                     y: (this.height + this.space) * i,
                     isKilled: false
                 });
@@ -27,14 +32,39 @@ class Enemies {
         }
     }
 
-    move() {
+    move(delta) {
         let e = this.list;
-        for (let i in e) {
-            e[i].x += this.moveBack ? -this.step : this.step;
+        let alive = e.filter(function (enemy) {
+            return !enemy.isKilled;
+        });
+        if (alive.length === 0) {
+            return;
         }
-        if ((!this.moveBack && e[e.length - 1].x + this.width > canvas.width)
-            || (this.moveBack && e[0].x < 0)) {
+        let moveBy = this.step * delta / 1000;
+        for (let i in e) {
+            e[i].x += this.moveBack ? -moveBy : moveBy;
+        }
+        let leftEdge = Math.min.apply(null, alive.map(function (enemy) {
+            return enemy.x;
+        }));
+        let rightEdge = Math.max.apply(null, alive.map(function (enemy) {
+            return enemy.x + enemies.width;
+        }));
+        if ((!this.moveBack && rightEdge > canvas.width)
+            || (this.moveBack && leftEdge < 0)) {
             this.moveBack = !this.moveBack;
+            for (let i in e) {
+                e[i].y += this.dropDistance;
+            }
+        }
+
+        for (let i in alive) {
+            if (alive[i].y + this.height >= player.y) {
+                player.lives = 0;
+                Game.updateHud();
+                Game.finish('fail');
+                return;
+            }
         }
     }
 
@@ -46,6 +76,9 @@ class Enemies {
                 if (!this.list[i].isKilled) {
                     count++;
                 }
+            }
+            if (count === 0) {
+                return;
             }
             let random = getRandomInt(1, count);
             for (let i in this.list) {
