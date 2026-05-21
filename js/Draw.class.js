@@ -133,10 +133,21 @@ export class Draw {
         for (let i in eb) {
             let x = eb[i].x;
             let y = eb[i].y;
+            ctx.beginPath();
+            ctx.moveTo(x, y + 14);
+            ctx.lineTo(x - 6, y + 1);
+            ctx.lineTo(x, y - 5);
+            ctx.lineTo(x + 6, y + 1);
+            ctx.closePath();
             ctx.fillStyle = '#ff4d6d';
-            ctx.fillRect(x - 2, y - 2, 4, 12);
+            ctx.fill();
+            ctx.strokeStyle = '#ffd84d';
+            ctx.lineWidth = 1;
+            ctx.stroke();
             ctx.fillStyle = '#ffd84d';
-            ctx.fillRect(x - 1, y + 8, 2, 5);
+            ctx.fillRect(x - 1, y + 8, 2, 7);
+            ctx.fillStyle = 'rgba(255, 77, 109, 0.24)';
+            ctx.fillRect(x - 4, y - 10, 8, 8);
         }
     }
 

@@ -87,7 +87,9 @@ export class Enemies {
                     if (c === random) {
                         let arr = {
                             x: this.list[i].x + missiles.size / 2,
-                            y: this.list[i].y + missiles.size
+                            y: this.list[i].y + missiles.size,
+                            speed: getRandomInt(310, 430),
+                            wobble: getRandomInt(0, 1000)
                         };
                         missiles.enemiesMissiles.push(arr);
                         this.lastShootTime = new Date().getTime();

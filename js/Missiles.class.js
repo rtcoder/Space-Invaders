@@ -2,6 +2,7 @@ export class Missiles {
     constructor() {
         this.size = 5;
         this.step = 620;
+        this.enemyStep = 360;
         this.explodes = new Array();
         this.explodeRadius = 50;
         this.playerMissiles = new Array();
@@ -29,7 +30,11 @@ export class Missiles {
             }
         }
         for (let i in eb) {
-            eb[i].y += moveBy;
+            let speed = eb[i].speed || this.enemyStep;
+            eb[i].y += speed * delta / 1000;
+            if (eb[i].wobble) {
+                eb[i].x += Math.sin((performance.now() + eb[i].wobble) / 90) * 0.35;
+            }
             if (eb[i].y > canvas.height) {
                 eb.splice(i, 1);
             }
