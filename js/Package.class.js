@@ -10,6 +10,9 @@ export class Package {
     }
 
     set() {
+        if (typeof extras.types[this.type].weapon !== 'undefined') {
+            extras.clearWeapons();
+        }
         if (typeof extras.activeExtras[extras.types[this.type].name] === "undefined") {
             extras.activeExtras[extras.types[this.type].name] = {
                 remaningTime: extras.types[this.type].remaningTime,

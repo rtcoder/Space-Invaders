@@ -1,3 +1,5 @@
+import {BOMB, BULLET, LASER, PIERCE, ROCKET, SHIELD} from './constants.js';
+
 export class Collisions {
     Explodes() {
         let e = enemies.list;
@@ -13,7 +15,7 @@ export class Collisions {
                 let c = {
                     x: ex[j].x,
                     y: ex[j].y,
-                    r: missiles.explodeRadius
+                    r: ex[j].r || missiles.explodeRadius
                 };
                 if (e.length > i && ex.length > j
                     && this.RectCircleColliding(c, r)
@@ -42,23 +44,46 @@ export class Collisions {
                     && pb[j].y + missiles.size >= e[i].y
                     && pb[j].y <= e[i].y + enemies.height
                     && !e[i].isKilled) {
-                    if (pb[j].type === BULLET) {
+                    if (pb[j].type === BULLET || pb[j].type === LASER || pb[j].type === PIERCE || pb[j].type === SHIELD) {
                         e[i].isKilled = true;
                         Game.addScore(100);
-                    } else if (pb[j].type === BOMB) {
+                    } else if (pb[j].type === BOMB || pb[j].type === ROCKET) {
                         missiles.explodes.push({
                             x: pb[j].x,
                             y: pb[j].y,
-                            t: 10
+                            t: 10,
+                            r: pb[j].type === ROCKET ? 34 : missiles.explodeRadius
                         });
                     }
-                    pb.splice(j, 1);
+                    if (pb[j].type === LASER || pb[j].type === PIERCE) {
+                        pb[j].pierceLeft--;
+                        if (pb[j].pierceLeft <= 0) {
+                            pb.splice(j, 1);
+                        }
+                    } else {
+                        pb.splice(j, 1);
+                    }
                     enemies.countAlive();
                 }
             }
         }
 
         let eb = missiles.enemiesMissiles;
+        for (let i in pb) {
+            if (pb[i].type !== SHIELD) {
+                continue;
+            }
+            for (let j in eb) {
+                if (pb.length > i && eb.length > j
+                    && eb[j].x + missiles.size >= pb[i].x - 18
+                    && eb[j].x <= pb[i].x + 18
+                    && eb[j].y + missiles.size >= pb[i].y - 5
+                    && eb[j].y <= pb[i].y + 12) {
+                    eb.splice(j, 1);
+                }
+            }
+        }
+
         let playerWidth = player.width;
         if (typeof extras.activeExtras.largeShip !== 'undefined') {
             playerWidth = player.largeWidth;

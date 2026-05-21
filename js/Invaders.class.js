@@ -1,3 +1,5 @@
+import {BULLET} from './constants.js';
+
 export class Invaders {
     constructor() {
         this.isPaused = false;
@@ -112,7 +114,8 @@ export class Invaders {
     }
 
     currentWeaponType() {
-        return this.canUseBomb() ? BOMB : BULLET;
+        let weapon = extras.activeWeapon();
+        return weapon ? weapon.weapon : BULLET;
     }
 
     togglePause() {

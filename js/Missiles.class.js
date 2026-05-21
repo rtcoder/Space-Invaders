@@ -19,7 +19,11 @@ export class Missiles {
         let eb = this.enemiesMissiles;
         let moveBy = this.step * delta / 1000;
         for (let i in pb) {
-            pb[i].y -= moveBy;
+            let speed = pb[i].speed || this.step;
+            pb[i].y -= speed * delta / 1000;
+            if (pb[i].vx) {
+                pb[i].x += pb[i].vx * delta / 1000;
+            }
             if (pb[i].y < 0) {
                 pb.splice(i, 1);
             }

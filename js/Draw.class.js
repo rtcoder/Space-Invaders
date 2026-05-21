@@ -1,3 +1,5 @@
+import {BOMB, BULLET, LASER, PIERCE, ROCKET, SHIELD} from './constants.js';
+
 export class Draw {
     constructor() {
         this.backgroundColor = '#02030a';
@@ -97,6 +99,26 @@ export class Draw {
                 ctx.fillRect(x - 2, y - 10, 4, 12);
                 ctx.fillStyle = '#40e0d0';
                 ctx.fillRect(x - 1, y - 14, 2, 5);
+            } else if (pb[i].type === LASER) {
+                ctx.fillStyle = '#f8ffff';
+                ctx.fillRect(x - 2, y - 34, 4, 36);
+                ctx.fillStyle = '#40e0d0';
+                ctx.fillRect(x - 5, y - 28, 10, 2);
+            } else if (pb[i].type === ROCKET) {
+                ctx.fillStyle = '#ff8a3d';
+                ctx.fillRect(x - 5, y - 16, 10, 16);
+                ctx.fillStyle = '#ffd84d';
+                ctx.fillRect(x - 2, y, 4, 8);
+            } else if (pb[i].type === PIERCE) {
+                ctx.fillStyle = '#98ff6f';
+                ctx.fillRect(x - 3, y - 18, 6, 18);
+                ctx.fillStyle = '#f8ffff';
+                ctx.fillRect(x - 1, y - 22, 2, 6);
+            } else if (pb[i].type === SHIELD) {
+                ctx.fillStyle = 'rgba(141, 216, 255, 0.55)';
+                ctx.fillRect(x - 18, y - 6, 36, 14);
+                ctx.strokeStyle = '#8dd8ff';
+                ctx.strokeRect(x - 18, y - 6, 36, 14);
             } else if (pb[i].type === BOMB) {
                 ctx.beginPath();
                 ctx.arc(x, y, missiles.size, 0, 2 * Math.PI, false);
@@ -124,14 +146,23 @@ export class Draw {
             ctx.beginPath();
             let x = e[i].x;
             let y = e[i].y;
-            ctx.moveTo(x, y);
-            ctx.arc(x, y, e[i].size / 2, 0, 2 * Math.PI, false);
-            ctx.strokeStyle = '#fff';
+            let pulse = 1 + Math.sin(performance.now() / 180 + i) * 0.08;
+            let radius = e[i].size / 2 * pulse;
+            ctx.moveTo(x, y - radius);
+            ctx.lineTo(x + radius, y);
+            ctx.lineTo(x, y + radius);
+            ctx.lineTo(x - radius, y);
+            ctx.closePath();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
             ctx.fillStyle = e[i].color;
             ctx.fill();
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 2;
             ctx.stroke();
-            ctx.fillStyle = '#02030a';
+            ctx.beginPath();
+            ctx.arc(x, y, e[i].size / 2.8, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'rgba(2, 3, 10, 0.82)';
+            ctx.fill();
+            ctx.fillStyle = '#f8ffff';
             ctx.font = '16px sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -144,7 +175,7 @@ export class Draw {
         for (let i in ex) {
             let alpha = Math.max(0.15, ex[i].t / 10);
             ctx.beginPath();
-            ctx.arc(ex[i].x, ex[i].y, missiles.explodeRadius * (1.1 - alpha / 2), 0, 2 * Math.PI, false);
+            ctx.arc(ex[i].x, ex[i].y, (ex[i].r || missiles.explodeRadius) * (1.1 - alpha / 2), 0, 2 * Math.PI, false);
             ctx.lineWidth = 3;
             ctx.strokeStyle = 'rgba(64, 224, 208, ' + alpha + ')';
             ctx.stroke();

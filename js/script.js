@@ -1,4 +1,5 @@
 import {levels} from './levels.js';
+import {BOMB, BULLET, LASER, PIERCE, RAPID, ROCKET, SHIELD, SPREAD} from './constants.js';
 import {getRandomInt, getRandomString, resize} from './custom.js';
 import {Controls} from './Controls.class.js';
 import {Mouse} from './Mouse.class.js';
@@ -12,8 +13,14 @@ import {Missiles} from './Missiles.class.js';
 import {Player} from './Player.class.js';
 import {Invaders} from './Invaders.class.js';
 
-window.BULLET = 1;
-window.BOMB = 2;
+window.BULLET = BULLET;
+window.BOMB = BOMB;
+window.LASER = LASER;
+window.SPREAD = SPREAD;
+window.ROCKET = ROCKET;
+window.PIERCE = PIERCE;
+window.RAPID = RAPID;
+window.SHIELD = SHIELD;
 window.levels = levels;
 window.getRandomInt = getRandomInt;
 window.getRandomString = getRandomString;

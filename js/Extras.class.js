@@ -1,3 +1,5 @@
+import {BOMB, LASER, PIERCE, RAPID, ROCKET, SHIELD, SPREAD} from './constants.js';
+
 export class Extras {
     constructor() {
         this.types = [
@@ -23,7 +25,50 @@ export class Extras {
                 name: 'bombWeapon',
                 remaningTime: 9000,
                 color: '#3688ff',
-                label: 'B'
+                label: 'B',
+                weapon: BOMB
+            },
+            {
+                name: 'laserWeapon',
+                remaningTime: 8000,
+                color: '#f8ffff',
+                label: 'L',
+                weapon: LASER
+            },
+            {
+                name: 'spreadWeapon',
+                remaningTime: 10000,
+                color: '#a78bfa',
+                label: 'S',
+                weapon: SPREAD
+            },
+            {
+                name: 'rocketWeapon',
+                remaningTime: 9000,
+                color: '#ff8a3d',
+                label: 'R',
+                weapon: ROCKET
+            },
+            {
+                name: 'pierceWeapon',
+                remaningTime: 9000,
+                color: '#98ff6f',
+                label: 'P',
+                weapon: PIERCE
+            },
+            {
+                name: 'rapidWeapon',
+                remaningTime: 8000,
+                color: '#ff62d0',
+                label: 'F',
+                weapon: RAPID
+            },
+            {
+                name: 'shieldWeapon',
+                remaningTime: 9000,
+                color: '#8dd8ff',
+                label: 'H',
+                weapon: SHIELD
             }
         ];
         this.activeExtras = [];
@@ -31,6 +76,30 @@ export class Extras {
         this.list = [];
         this.lastDropTime = null;
         this.step = 90;
+    }
+
+    weaponTypes() {
+        return this.types.filter(function (type) {
+            return typeof type.weapon !== 'undefined';
+        });
+    }
+
+    activeWeapon() {
+        let weapons = this.weaponTypes();
+        for (let i in weapons) {
+            if (typeof this.activeExtras[weapons[i].name] !== 'undefined') {
+                return weapons[i];
+            }
+        }
+        return null;
+    }
+
+    clearWeapons() {
+        let weapons = this.weaponTypes();
+        for (let i in weapons) {
+            delete this.activeExtras[weapons[i].name];
+            document.getElementById(weapons[i].name + 'Container').style.display = 'none';
+        }
     }
 
     reset() {

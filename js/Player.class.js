@@ -1,3 +1,5 @@
+import {BULLET, LASER, PIERCE, RAPID, SPREAD} from './constants.js';
+
 export class Player {
     constructor() {
         this.allowMoveLeft = true;
@@ -92,21 +94,50 @@ export class Player {
     }
 
     shoot(type) {
-        if (new Date().getTime() - this.lastShootTime > this.shootInterval || !this.lastShootTime) {
+        let shootInterval = this.shootInterval;
+        if (type === RAPID) {
+            shootInterval *= 0.34;
+            type = BULLET;
+        }
+        if (new Date().getTime() - this.lastShootTime > shootInterval || !this.lastShootTime) {
             let width = this.width;
             if (typeof extras.activeExtras.largeShip !== 'undefined') {
                 width = this.largeWidth;
+            }
+            if (type === SPREAD) {
+                missiles.playerMissiles.push({
+                    x: this.x + width / 2,
+                    y: this.y - this.height,
+                    type: BULLET,
+                    vx: 0
+                });
+                missiles.playerMissiles.push({
+                    x: this.x + width / 2 - 10,
+                    y: this.y - this.height,
+                    type: BULLET,
+                    vx: -220
+                });
+                missiles.playerMissiles.push({
+                    x: this.x + width / 2 + 10,
+                    y: this.y - this.height,
+                    type: BULLET,
+                    vx: 220
+                });
+                this.lastShootTime = new Date().getTime();
+                return;
             }
             if (typeof extras.activeExtras.doubleShoot !== 'undefined') {
                 let obj1 = {
                     x: this.x,
                     y: this.y - this.height,
-                    type: type
+                    type: type,
+                    pierceLeft: type === PIERCE || type === LASER ? 3 : 0
                 };
                 let obj2 = {
                     x: this.x + width,
                     y: this.y - this.height,
-                    type: type
+                    type: type,
+                    pierceLeft: type === PIERCE || type === LASER ? 3 : 0
                 };
 
                 missiles.playerMissiles.push(obj1);
@@ -115,7 +146,8 @@ export class Player {
                 let obj = {
                     x: this.x + width / 2,
                     y: this.y - this.height,
-                    type: type
+                    type: type,
+                    pierceLeft: type === PIERCE || type === LASER ? 3 : 0
                 };
 
                 missiles.playerMissiles.push(obj);

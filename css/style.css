@@ -123,6 +123,24 @@ body .hud-power .speed {
 body .hud-power .bomb {
   background: var(--hud-blue);
 }
+body .hud-power .laser {
+  background: #f8ffff;
+}
+body .hud-power .spread {
+  background: #a78bfa;
+}
+body .hud-power .rocket {
+  background: #ff8a3d;
+}
+body .hud-power .pierce {
+  background: #98ff6f;
+}
+body .hud-power .rapid {
+  background: #ff62d0;
+}
+body .hud-power .shield {
+  background: #8dd8ff;
+}
 body .hud-credit {
   color: var(--hud-muted);
   font-size: 11px;
