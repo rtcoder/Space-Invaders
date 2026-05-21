@@ -86,6 +86,9 @@ document.getElementById('messageAction').addEventListener('click', function () {
         Game.messageAction();
     }
 });
+document.getElementById('messageMenu').addEventListener('click', function () {
+    Game.backToMenu();
+});
 
 let menuListElements = document.getElementsByClassName('open-view');
 for (let btn of menuListElements) {

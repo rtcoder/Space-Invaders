@@ -83,9 +83,25 @@
             <canvas id="canvas"></canvas>
 
             <div id="message" class="hidden">
-                <h1 id="messageTitle"></h1>
-                <p id="messageText"></p>
-                <button id="messageAction">Continue</button>
+                <div class="message-panel">
+                    <p class="menu-kicker" id="messageKicker">Transmission ended</p>
+                    <h1 id="messageTitle"></h1>
+                    <div class="message-stats">
+                        <span>
+                            <b id="messageScore">000000</b>
+                            Score
+                        </span>
+                        <span>
+                            <b id="messageWave">1</b>
+                            Wave
+                        </span>
+                    </div>
+                    <p id="messageText"></p>
+                    <div class="message-actions">
+                        <button id="messageAction">Continue</button>
+                        <button id="messageMenu">Menu</button>
+                    </div>
+                </div>
             </div>
 
             <div id="menu">

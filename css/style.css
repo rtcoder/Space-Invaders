@@ -165,27 +165,81 @@ body #message {
   color: #fff;
   text-align: center;
 }
+body .message-panel {
+  width: min(620px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 38px 30px 28px;
+  border-top: 1px solid var(--hud-red);
+  border-bottom: 1px solid var(--hud-red);
+  background:
+    linear-gradient(180deg, rgba(9, 3, 10, 0.9), rgba(2, 3, 10, 0.84)),
+    radial-gradient(circle at 50% 8%, rgba(255, 77, 109, 0.16), transparent 42%);
+  box-shadow: 0 0 46px rgba(255, 77, 109, 0.12);
+}
 body #message h1 {
   margin: 0;
-  font-size: 38px;
+  color: var(--hud-red);
+  font-size: 56px;
   font-weight: normal;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(255, 77, 109, 0.45);
+}
+body .message-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 26px auto 18px;
+  max-width: 420px;
+}
+body .message-stats span {
+  min-height: 62px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--hud-border-soft);
+  background: rgba(2, 3, 10, 0.72);
+  color: var(--hud-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+body .message-stats b {
+  margin-bottom: 6px;
+  color: var(--hud-yellow);
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 1;
 }
 body #message p {
   margin: 0;
-  max-width: 520px;
+  max-width: 540px;
   line-height: 1.5;
+  color: var(--hud-muted);
+}
+body .message-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
 }
 body #message button {
-  border: 1px solid #fff;
-  background: #000;
-  color: #fff;
-  padding: 10px 18px;
+  min-width: 150px;
+  border: 1px solid var(--hud-border);
+  background: rgba(2, 3, 10, 0.82);
+  color: var(--hud-text);
+  padding: 12px 16px;
   font: inherit;
   cursor: pointer;
+  text-transform: uppercase;
+}
+body #messageAction {
+  border-color: var(--hud-yellow);
+  color: var(--hud-yellow);
 }
 body #message button:hover {
-  background: #fff;
-  color: #000;
+  background: var(--hud-text);
+  color: #02030a;
+  border-color: var(--hud-text);
 }
 body #menu {
   width: 100vw;
@@ -397,6 +451,21 @@ body .key-map b {
   }
   body canvas {
     height: calc(100% - 126px);
+  }
+  body .message-panel {
+    padding: 30px 18px 22px;
+  }
+  body #message h1 {
+    font-size: 38px;
+  }
+  body .message-stats {
+    grid-template-columns: 1fr;
+  }
+  body .message-actions {
+    flex-direction: column;
+  }
+  body #message button {
+    width: 100%;
   }
   body .menu-shell {
     padding: 34px 18px 24px;

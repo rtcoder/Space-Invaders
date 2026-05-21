@@ -59,9 +59,10 @@ export class Invaders {
             this.isFinished = true;
             this.showMessage(
                 'Game Over',
-                'Final score: ' + this.score + '. Try again from level 1.',
+                'Your ship is down, but the score stays on the board.',
                 'Restart',
-                this.startGame.bind(this)
+                this.startGame.bind(this),
+                'Transmission lost'
             );
             return;
         }
@@ -70,9 +71,10 @@ export class Invaders {
             this.isFinished = true;
             this.showMessage(
                 'You Win',
-                'All waves cleared. Final score: ' + this.score + '.',
+                'All waves cleared. The sector is quiet for now.',
                 'Play Again',
-                this.startGame.bind(this)
+                this.startGame.bind(this),
+                'Sector cleared'
             );
             return;
         }
@@ -129,7 +131,8 @@ export class Invaders {
                 'Paused',
                 'Take a breath, then jump back in.',
                 'Resume',
-                this.togglePause.bind(this)
+                this.togglePause.bind(this),
+                'Systems paused'
             );
         } else {
             this.hideMessage();
@@ -143,12 +146,22 @@ export class Invaders {
         document.getElementById('score').innerHTML = String(this.score).padStart(6, '0');
     }
 
-    showMessage(title, text, actionLabel, action) {
+    showMessage(title, text, actionLabel, action, kicker) {
+        document.getElementById('messageKicker').innerHTML = kicker || '';
         document.getElementById('messageTitle').innerHTML = title;
         document.getElementById('messageText').innerHTML = text;
         document.getElementById('messageAction').innerHTML = actionLabel;
+        document.getElementById('messageScore').innerHTML = String(this.score).padStart(6, '0');
+        document.getElementById('messageWave').innerHTML = this.level + 1;
         document.getElementById('message').classList.remove('hidden');
         this.messageAction = action;
+    }
+
+    backToMenu() {
+        this.isPaused = false;
+        this.isFinished = true;
+        this.hideMessage();
+        document.getElementById('menu').classList.remove('hidden');
     }
 
     hideMessage() {
