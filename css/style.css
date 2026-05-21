@@ -120,6 +120,9 @@ body .hud-power .large {
 body .hud-power .speed {
   background: var(--hud-cyan);
 }
+body .hud-power .bomb {
+  background: var(--hud-blue);
+}
 body .hud-credit {
   color: var(--hud-muted);
   font-size: 11px;

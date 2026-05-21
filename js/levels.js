@@ -6,8 +6,7 @@ export const levels = [
         playerShootInterval: 700,
         enemiesColor: 'blue',
         enemiesStep: 45,
-        enemiesDropDistance: 12,
-        isBombEnabled: true
+        enemiesDropDistance: 12
     },
     {
         cols: 7,
@@ -16,8 +15,7 @@ export const levels = [
         playerShootInterval: 600,
         enemiesColor: 'green',
         enemiesStep: 55,
-        enemiesDropDistance: 13,
-        isBombEnabled: true
+        enemiesDropDistance: 13
     },
     {
         cols: 8,
@@ -26,8 +24,7 @@ export const levels = [
         playerShootInterval: 560,
         enemiesColor: 'yellow',
         enemiesStep: 65,
-        enemiesDropDistance: 14,
-        isBombEnabled: true
+        enemiesDropDistance: 14
     },
     {
         cols: 9,
@@ -36,8 +33,7 @@ export const levels = [
         playerShootInterval: 520,
         enemiesColor: 'pink',
         enemiesStep: 75,
-        enemiesDropDistance: 15,
-        isBombEnabled: true
+        enemiesDropDistance: 15
     },
     {
         cols: 10,
@@ -46,8 +42,7 @@ export const levels = [
         playerShootInterval: 480,
         enemiesColor: 'purple',
         enemiesStep: 85,
-        enemiesDropDistance: 16,
-        isBombEnabled: true
+        enemiesDropDistance: 16
     },
     {
         cols: 11,
@@ -56,7 +51,6 @@ export const levels = [
         playerShootInterval: 450,
         enemiesColor: 'orange',
         enemiesStep: 95,
-        enemiesDropDistance: 17,
-        isBombEnabled: true
+        enemiesDropDistance: 17
     },
 ];

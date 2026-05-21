@@ -18,6 +18,12 @@ export class Extras {
                 remaningTime: 10000,
                 color: '#40e0d0',
                 label: 'S'
+            },
+            {
+                name: 'bombWeapon',
+                remaningTime: 9000,
+                color: '#3688ff',
+                label: 'B'
             }
         ];
         this.activeExtras = [];

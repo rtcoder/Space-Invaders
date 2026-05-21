@@ -7,7 +7,6 @@ export class Keys {
         this.shift = false;
         this.C = false;
         this.X = false;
-        this.Z = false;
 
     }
 
@@ -38,9 +37,6 @@ export function bindKeyboard() {
             case 88:
                 keys.X = true;
                 break;
-            case 90:
-                keys.Z = true;
-                break;
         }
     };
     document.onkeyup = function (e) {
@@ -64,9 +60,6 @@ export function bindKeyboard() {
                 break;
             case 88:
                 keys.X = false;
-                break;
-            case 90:
-                keys.Z = false;
                 break;
         }
     };

@@ -6,7 +6,6 @@ export class Invaders {
         this.lastFrameTime = null;
         this.level = 0;
         this.score = 0;
-        this.isBombEnabled = false;
         this.messageAction = null;
     }
 
@@ -42,7 +41,6 @@ export class Invaders {
         enemies.step = levels[this.level].enemiesStep || enemies.step;
         enemies.dropDistance = levels[this.level].enemiesDropDistance || enemies.dropDistance;
         player.shootInterval = levels[this.level].playerShootInterval;
-        this.isBombEnabled = levels[this.level].isBombEnabled;
 
         extras.reset();
         missiles.reset();
@@ -107,6 +105,14 @@ export class Invaders {
     addScore(val) {
         this.score += val;
         this.updateHud();
+    }
+
+    canUseBomb() {
+        return typeof extras.activeExtras.bombWeapon !== 'undefined';
+    }
+
+    currentWeaponType() {
+        return this.canUseBomb() ? BOMB : BULLET;
     }
 
     togglePause() {
@@ -179,20 +185,14 @@ export class Invaders {
                     player.moveRight(delta);
                 }
                 if (keys.ctrl || keys.space) {
-                    player.shoot(BULLET);
-                }
-                if (keys.Z && Game.isBombEnabled) {
-                    player.shoot(BOMB);
+                    player.shoot(this.currentWeaponType());
                 }
             }
             if (controls.mouseControl) {
                 player.moveTo({x: mouse.xPos});
 
                 if (mouse.left) {
-                    player.shoot(BULLET);
-                }
-                if (mouse.right && Game.isBombEnabled) {
-                    player.shoot(BOMB);
+                    player.shoot(this.currentWeaponType());
                 }
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);

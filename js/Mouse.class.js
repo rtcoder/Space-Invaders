@@ -23,6 +23,18 @@ export class Mouse {
             window.addEventListener('mousemove', function (e) {
                 $this.onMousemove(e, $this);
             });
+            window.addEventListener('touchstart', function (e) {
+                $this.onTouch(e, $this);
+            }, {passive: false});
+            window.addEventListener('touchmove', function (e) {
+                $this.onTouch(e, $this);
+            }, {passive: false});
+            window.addEventListener('touchend', function (e) {
+                $this.onTouch(e, $this);
+            }, {passive: false});
+            window.addEventListener('touchcancel', function (e) {
+                $this.onTouch(e, $this);
+            }, {passive: false});
             ['scroll', 'mousewheel', 'DOMMouseScroll'].map(function (e) {
                 window.addEventListener(e, function (event) {
                     $this.onScroll(event, $this);
@@ -56,6 +68,20 @@ export class Mouse {
         e = e || window.event;
         self.xPos = e.pageX;
         self.yPos = e.pageY;
+    }
+
+    onTouch(e, self) {
+        e.preventDefault();
+        if (e.touches.length > 0) {
+            self.xPos = e.touches[0].pageX;
+            self.yPos = e.touches[0].pageY;
+            self.left = true;
+            self.right = false;
+            return;
+        }
+
+        self.left = false;
+        self.right = false;
     }
 
     onMouse(e, self, valueToSet) {
